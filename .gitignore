@@ -1,0 +1,18 @@
+# Ignore config files with DB credentials
+config.properties
+
+# Ignore build files
+*.class
+*.log
+
+# Ignore JDBC JAR (users should download separately)
+mysql-connector-j-*.jar
+
+# Ignore OS specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.iml

@@ -1,24 +1,24 @@
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/employee_db";
-    private static final String USER = "root";   // change to your MySQL username
-    private static final String PASSWORD = "RakeshDBPass@2004"; // change to your password
-
     public static Connection getConnection() {
         try {
-            // Load MySQL driver explicitly
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
+            Properties props = new Properties();
+            props.load(new FileInputStream("config.properties"));
+
+            String URL = props.getProperty("db.url");
+            String USER = props.getProperty("db.user");
+            String PASSWORD = props.getProperty("db.password");
+
+            // Always return a fresh connection
             return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            System.out.println("MySQL Driver not found!");
+
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }
